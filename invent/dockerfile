@@ -1,0 +1,24 @@
+# syntax=docker/dockerfile:1
+FROM python
+
+# set environment variables
+ENV APP_HOME=/invent
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# set work directory
+WORKDIR $APP_HOME
+
+# update pip, install dependencies
+RUN pip install --upgrade pip 
+COPY ./requirements.txt $APP_HOME
+RUN pip install -r requirements.txt
+
+# copy app folder
+COPY . $APP_HOME
+# ENTRYPOINT [ "bash", "-e", "entrypoint.sh" ]
+
+RUN python manage.py makemigrations customers
+RUN python manage.py migrate_schemas --shared
+# python manage.py collectstatic --noinput --clear
+RUN python manage.py shell -c "import schemas2.view;schemas2.view.migration_sql()"
