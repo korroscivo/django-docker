@@ -13,4 +13,9 @@ jobs:
 
         steps:
             - name: "Muestra Mensaje"
-              run: "echo hola mundo"
+              run: echo "hola mundo"
+
+            - name: "Muestra variables"
+              run: |
+                echo "Evento: ${{toJSON(github.event)}}"
+                echo "Actor: ${{github.actor}}"
