@@ -9,6 +9,9 @@ on:
 jobs:
 
     build:
+        env:
+            password: ${{secrets.PASSWORD}}
+
         runs-on: ubuntu-latest
 
         steps:
