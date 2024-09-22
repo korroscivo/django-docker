@@ -13,4 +13,4 @@ jobs:
 
         steps:
             - name: "Muestra Mensaje"
-              run: "eco hola mundo"
+              run: "echo hola mundo"
